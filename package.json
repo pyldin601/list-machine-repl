@@ -5,7 +5,8 @@
   "scripts": {
     "test": "jest",
     "cover": "jest --coverage && (cat ./coverage/lcov.info | coveralls)",
-    "build": "webpack -p --config ./webpack.config.js"
+    "build": "webpack -p",
+    "watch": "webpack -p -w"
   },
   "repository": {
     "type": "git",
