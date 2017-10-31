@@ -17,7 +17,7 @@ interface IConsoleState {
 }
 
 export default class Console extends React.Component<IConsoleProps, IConsoleState> {
-  private consoleRef: HTMLDivElement;
+  private inputRef: HTMLInputElement;
 
   constructor(props: IConsoleProps) {
     super(props);
@@ -174,7 +174,7 @@ export default class Console extends React.Component<IConsoleProps, IConsoleStat
   }
 
   public focus() {
-    this.consoleRef.focus();
+    this.inputRef.focus();
   }
 
   public renderLogItem(item: ILogItem, key: any) {
@@ -214,6 +214,11 @@ export default class Console extends React.Component<IConsoleProps, IConsoleStat
         <span>{inputBeforeCursor}</span>
         <span className="cursor">{this.sanitizeCharUnderCursor(inputAtCursor)}</span>
         <span>{inputAfterCursor}</span>
+        <input
+          ref={ref => this.inputRef = ref}
+          className="dumb"
+          type="text"
+        />
       </div>
     );
   }
@@ -221,7 +226,6 @@ export default class Console extends React.Component<IConsoleProps, IConsoleStat
   public render() {
     return (
       <div
-        ref={ref => this.consoleRef = ref}
         className="console"
         tabIndex={0}
         onKeyDown={this.onKeyDown}
