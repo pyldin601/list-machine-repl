@@ -1,6 +1,6 @@
 import * as React from 'react';
 import makeEvaluator from '@peacefulbit/list-machine';
-import { Console } from '../components';
+import { Console, Editor } from '../components';
 
 export default class App extends React.Component<{}, {}> {
   private evaluate: (code: string) => any;
@@ -13,7 +13,8 @@ export default class App extends React.Component<{}, {}> {
   public render() {
     return (
       <div className="repl-container">
-        <Console onEval={this.evaluate}/>
+        <Console onEval={this.evaluate} />
+        <Editor onEval={this.evaluate} />
       </div>
     );
   }

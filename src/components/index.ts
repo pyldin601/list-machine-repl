@@ -1,3 +1,4 @@
 import Console from './Console';
+import Editor from './Editor';
 
-export { Console };
+export { Console, Editor };

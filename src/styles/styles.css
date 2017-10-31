@@ -1,4 +1,6 @@
 @import '~normalize.css';
+@import '~codemirror/lib/codemirror.css';
+@import '~codemirror/theme/material.css';
 
 .repl-container {
     display: flex;
@@ -6,9 +8,23 @@
     height: 100vh;
 }
 
+.editor {
+    width: 50%;
+    font-size: 14pt;
+    font-family: 'Monaco', monospace;
+}
+
+.editor .ReactCodeMirror, .editor .CodeMirror {
+    font-family: 'Monaco', monospace;
+    position: relative;
+    height: 100%;
+}
+
 .console {
-    flex: 1;
+    padding: 4px;
+    width: 50%;
     overflow-y: scroll;
+    font-size: 14pt;
     background-color: #223344;
     color: #eeeeee;
     font-family: 'Monaco', monospace;
