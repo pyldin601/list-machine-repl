@@ -124,18 +124,16 @@ export default class Console extends React.Component<IConsoleProps, IConsoleStat
   public async onEnterPressed() {
     const input = this.state.input;
     await this.writeLine('input', input);
-
-    try {
-      await this.writeLine('output', String(this.eval(input)));
-    } catch (e) {
-      await this.writeLine('error', String(e));
-    }
-
+    await this.eval(input);
     await this.cleanInput();
   }
 
   public eval(content: string) {
-    return this.props.onEval(content);
+    try {
+      return this.writeLine('output', String(this.props.onEval(content)));
+    } catch (e) {
+      return this.writeLine('error', String(e));
+    }
   }
 
   public writeLine(type: ILogItem['type'], content: ILogItem['content']) {

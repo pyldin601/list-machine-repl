@@ -25,10 +25,15 @@ export default class Editor extends React.Component<IConsoleProps, IConsoleState
     };
 
     this.onUpdateCode = this.onUpdateCode.bind(this);
+    this.onEvalClick = this.onEvalClick.bind(this);
   }
 
   public onUpdateCode(code: string) {
     this.setState({ code });
+  }
+
+  public onEvalClick() {
+    this.props.onEval(this.state.code);
   }
 
   public render() {
@@ -39,6 +44,9 @@ export default class Editor extends React.Component<IConsoleProps, IConsoleState
           onChange={this.onUpdateCode}
           options={options}
         />
+        <div className="panel">
+          <button onClick={this.onEvalClick}>Evaluate</button>
+        </div>
       </div>
     )
   }

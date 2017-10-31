@@ -8,19 +8,27 @@
     height: 100vh;
 }
 
-.editor {
+.repl-container .editor {
     width: 50%;
     font-size: 14pt;
     font-family: 'Monaco', monospace;
+    display: flex;
+    flex-direction: column;
 }
 
-.editor .ReactCodeMirror, .editor .CodeMirror {
+.repl-container .editor .ReactCodeMirror, .editor .CodeMirror {
     font-family: 'Monaco', monospace;
     position: relative;
     height: 100%;
 }
 
-.console {
+.repl-container .editor .panel {
+    padding: 4px;
+    background-color: #263238;
+    color: #eeeeee;
+}
+
+.repl-container .console {
     padding: 4px;
     width: 50%;
     overflow-y: scroll;
@@ -32,19 +40,24 @@
     white-space: pre;
 }
 
-.console .log .row {
+.repl-container .console .log .row {
 
 }
 
-.console .log .row.error {
+.repl-container .console .log .row.error {
     color: #ff0000;
 }
 
-.console .log .row.output {
+.repl-container .console .log .row.output {
     color: #00ff00;
 }
 
-.console .prompt .cursor {
+.repl-container .console .prompt .cursor {
     background-color: #eeeeee;
     color: #223344;
+}
+
+.repl-container .footer {
+    height: 64px;
+    color: #aaaaaa;
 }
