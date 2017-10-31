@@ -45,7 +45,7 @@ export default class Editor extends React.Component<IConsoleProps, IConsoleState
           options={options}
         />
         <div className="panel">
-          <button onClick={this.onEvalClick}>Evaluate</button>
+          <button className="button flat" onClick={this.onEvalClick}>Evaluate</button>
         </div>
       </div>
     )

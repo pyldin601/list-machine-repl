@@ -130,7 +130,8 @@ export default class Console extends React.Component<IConsoleProps, IConsoleStat
 
   public eval(content: string) {
     try {
-      return this.writeLine('output', String(this.props.onEval(content)));
+      const result = String(this.props.onEval(content));
+      return this.writeLine('output', result);
     } catch (e) {
       return this.writeLine('error', e.stack);
     }

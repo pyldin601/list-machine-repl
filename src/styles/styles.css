@@ -2,6 +2,25 @@
 @import '~codemirror/lib/codemirror.css';
 @import '~codemirror/theme/material.css';
 
+.button.flat {
+    color: #fff;
+    background-color: #6496c8;
+    text-shadow: -1px 1px #417cb8;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.button.flat:hover {
+    background-color: #346392;
+    text-shadow: -1px 1px #27496d;
+}
+
+.button.flat:active {
+    background-color: #27496d;
+    text-shadow: -1px 1px #193047;
+}
+
 .repl-container {
     display: flex;
     width: 100vw;
@@ -16,8 +35,12 @@
     flex-direction: column;
 }
 
-.repl-container .editor .ReactCodeMirror, .editor .CodeMirror {
+.repl-container .editor .ReactCodeMirror {
     font-family: 'Monaco', monospace;
+    overflow-y: auto;
+}
+
+.repl-container .editor .ReactCodeMirror, .editor .CodeMirror {
     position: relative;
     height: 100%;
 }
@@ -26,12 +49,14 @@
     padding: 4px;
     background-color: #263238;
     color: #eeeeee;
+    font-size: 12pt;
+    font-family: sans-serif;
 }
 
 .repl-container .console {
     padding: 4px;
     width: 50%;
-    overflow-y: scroll;
+    overflow-y: auto;
     font-size: 14pt;
     background-color: #223344;
     color: #eeeeee;
@@ -55,9 +80,4 @@
 .repl-container .console .prompt .cursor {
     background-color: #eeeeee;
     color: #223344;
-}
-
-.repl-container .footer {
-    height: 64px;
-    color: #aaaaaa;
 }
