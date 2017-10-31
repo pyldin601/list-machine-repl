@@ -1,0 +1,14 @@
+.console {
+    width: 100%;
+    height: 450px;
+    background-color: #eeeeee;
+    color: #000000;
+    font-family: monospace;
+    outline: none;
+    white-space: pre;
+}
+
+.console .prompt .cursor {
+    background-color: #000000;
+    color: #eeeeee;
+}
