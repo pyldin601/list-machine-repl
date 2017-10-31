@@ -171,7 +171,20 @@ export default class Console extends React.Component<IConsoleProps, IConsoleStat
   }
 
   public renderLogItem(item: ILogItem, key: any) {
-    return <span key={key} className={cn('row', item.type)}>{`${item.content}\n`}</span>;
+    if (item.type === 'input') {
+      return (
+        <span key={key} className={cn('row', item.type)}>
+          <span>&gt;&nbsp;</span>
+          <span>{`${item.content}\n`}</span>
+        </span>
+      );
+    }
+
+    return (
+      <span key={key} className={cn('row', item.type)}>
+        {`${item.content}\n`}
+      </span>
+    );
   }
 
   public renderLog() {
@@ -185,13 +198,14 @@ export default class Console extends React.Component<IConsoleProps, IConsoleStat
   public renderPrompt() {
     const currentInput = this.state.input;
     const inputBeforeCursor = currentInput.slice(0, this.state.cursorPosition);
-    const inputAtCursor = currentInput[this.state.cursorPosition] || ' ';
+    const inputAtCursor = currentInput[this.state.cursorPosition];
     const inputAfterCursor = currentInput.slice(this.state.cursorPosition + 1);
 
     return (
       <div className="prompt">
+        <span>&gt;&nbsp;</span>
         <span>{inputBeforeCursor}</span>
-        <span className="cursor">{inputAtCursor}</span>
+        <span className="cursor">{this.sanitizeCharUnderCursor(inputAtCursor)}</span>
         <span>{inputAfterCursor}</span>
       </div>
     );
@@ -211,5 +225,12 @@ export default class Console extends React.Component<IConsoleProps, IConsoleStat
         {this.renderPrompt()}
       </div>
     );
+  }
+
+  public sanitizeCharUnderCursor(char: string): string {
+    if (!char) {
+      return ' ';
+    }
+    return char.replace('\n', ' \n');
   }
 };

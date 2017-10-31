@@ -24,6 +24,10 @@
     color: #ff0000;
 }
 
+.console .log .row.output {
+    color: #00ff00;
+}
+
 .console .prompt .cursor {
     background-color: #eeeeee;
     color: #223344;
