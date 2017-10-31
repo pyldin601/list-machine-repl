@@ -7,6 +7,10 @@ export default class App extends React.Component<{}, {}> {
   }
 
   public render() {
-    return <Console />;
+    return (
+      <div className="repl-container">
+        <Console onEval={() => 'OK'}/>
+      </div>
+    );
   }
 }

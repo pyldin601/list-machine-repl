@@ -1,15 +1,14 @@
+import * as cn from 'classnames';
 import * as React from 'react';
-import * as _ from 'lodash';
 
 interface ILogItem {
   type: 'input' | 'output' | 'error',
   content: string,
 }
 
-// interface IConsole {
-//   log: ILogItem[],
-//   onLine: (content: string) => boolean,
-// }
+interface IConsoleProps {
+  onEval: (content: string) => any,
+}
 
 interface IConsoleState {
   input: string,
@@ -17,10 +16,10 @@ interface IConsoleState {
   log: ILogItem[],
 }
 
-export default class Console extends React.Component<{}, IConsoleState> {
+export default class Console extends React.Component<IConsoleProps, IConsoleState> {
   private consoleRef: HTMLDivElement;
 
-  constructor(props: {}) {
+  constructor(props: IConsoleProps) {
     super(props);
 
     this.state = {
@@ -58,7 +57,6 @@ export default class Console extends React.Component<{}, IConsoleState> {
   }
 
   public onKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
-    console.log(event.key);
     switch (event.key) {
       case 'ArrowLeft':
         return this.onArrowLeftKeyPressed();
@@ -123,9 +121,19 @@ export default class Console extends React.Component<{}, IConsoleState> {
 
   public async onEnterPressed() {
     const input = this.state.input;
-    await this.writeLine('input', `${input}\n`);
-    await this.writeLine('output', 'OK\n');
+    await this.writeLine('input', input);
+
+    try {
+      await this.writeLine('output', String(this.eval(input)));
+    } catch (e) {
+      await this.writeLine('error', String(e));
+    }
+
     await this.cleanInput();
+  }
+
+  public eval(content: string) {
+    return this.props.onEval(content);
   }
 
   public writeLine(type: ILogItem['type'], content: ILogItem['content']) {
@@ -161,7 +169,7 @@ export default class Console extends React.Component<{}, IConsoleState> {
   }
 
   public renderLogItem(item: ILogItem, key: any) {
-    return <span key={key}>{item.content}</span>;
+    return <span key={key} className={cn('row', item.type)}>{`${item.content}\n`}</span>;
   }
 
   public renderLog() {
