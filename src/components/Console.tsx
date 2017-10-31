@@ -43,7 +43,9 @@ export default class Console extends React.Component<IConsoleProps, IConsoleStat
 
     switch (event.key) {
       case 'Enter':
-        return this.onEnterPressed();
+        return event.ctrlKey
+          ? this.writeAtCursor('\n')
+          : this.onEnterPressed();
 
       default:
         return this.writeAtCursor(event.key);
