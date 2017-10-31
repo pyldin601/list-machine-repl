@@ -4,4 +4,3 @@ node_modules/
 .eslintcache
 .env
 .idea
-docs/assets/*
