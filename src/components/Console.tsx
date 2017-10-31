@@ -132,7 +132,7 @@ export default class Console extends React.Component<IConsoleProps, IConsoleStat
     try {
       return this.writeLine('output', String(this.props.onEval(content)));
     } catch (e) {
-      return this.writeLine('error', String(e));
+      return this.writeLine('error', e.stack);
     }
   }
 
@@ -147,6 +147,14 @@ export default class Console extends React.Component<IConsoleProps, IConsoleStat
       input: '',
       cursorPosition: 0,
     })
+  }
+
+  public clean() {
+    return this.setStateAsync({
+      input: '',
+      cursorPosition: 0,
+      log: [],
+    });
   }
 
   public writeAtCursor(content: string) {

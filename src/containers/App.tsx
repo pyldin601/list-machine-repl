@@ -14,8 +14,10 @@ export default class App extends React.Component<{}, {}> {
     this.onEditorEval = this.onEditorEval.bind(this);
   }
 
-  public onEditorEval(code: string) {
-    return this.consoleRef.eval(code);
+  public async onEditorEval(code: string) {
+    await this.consoleRef.clean();
+    await this.consoleRef.writeLine('input', '');
+    await this.consoleRef.eval(code);
   }
 
   public render() {
