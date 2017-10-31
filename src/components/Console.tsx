@@ -32,11 +32,30 @@ export default class Console extends React.Component<{}, IConsoleState> {
     this.renderLogItem = this.renderLogItem.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
     this.onKeyPress = this.onKeyPress.bind(this);
+    this.onPaste = this.onPaste.bind(this);
   }
 
   public setStateAsync = (state: any) => new Promise((resolve) => {
     this.setState(state, resolve);
   });
+
+  public onKeyPress(event: React.KeyboardEvent<HTMLDivElement>) {
+    event.preventDefault();
+
+    switch (event.key) {
+      case 'Enter':
+        return this.onEnterPressed();
+
+      default:
+        return this.writeAtCursor(event.key);
+    }
+  }
+
+  public onPaste(event: React.ClipboardEvent<HTMLDivElement>) {
+    event.preventDefault();
+    const data = event.clipboardData.getData('Text');
+    return this.writeAtCursor(data);
+  }
 
   public onKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
     console.log(event.key);
@@ -122,22 +141,15 @@ export default class Console extends React.Component<{}, IConsoleState> {
     })
   }
 
-  public onKeyPress(event: React.KeyboardEvent<HTMLDivElement>) {
-    switch (event.key) {
-      case 'Enter':
-        return this.onEnterPressed();
+  public writeAtCursor(content: string) {
+    const input = this.state.input;
+    const beforeCursor = input.slice(0, this.state.cursorPosition);
+    const afterCursor = input.slice(this.state.cursorPosition);
 
-      default: {
-        const beforeCursor = this.state.input.slice(0, this.state.cursorPosition);
-        const afterCursor = this.state.input.slice(this.state.cursorPosition);
-
-        return this.setStateAsync({
-          input: `${beforeCursor}${event.key}${afterCursor}`,
-          cursorPosition: this.state.cursorPosition + 1,
-        })
-      }
-    }
-
+    return this.setStateAsync({
+      input: `${beforeCursor}${content}${afterCursor}`,
+      cursorPosition: this.state.cursorPosition + content.length,
+    })
   }
 
   public componentDidMount() {
@@ -183,6 +195,7 @@ export default class Console extends React.Component<{}, IConsoleState> {
         tabIndex={0}
         onKeyDown={this.onKeyDown}
         onKeyPress={this.onKeyPress}
+        onPaste={this.onPaste}
       >
         {this.renderLog()}
         {this.renderPrompt()}
