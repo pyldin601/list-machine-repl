@@ -1,14 +1,16 @@
+@import '~normalize.css';
+
 .console {
     width: 100%;
     height: 450px;
-    background-color: #eeeeee;
-    color: #000000;
-    font-family: monospace;
+    background-color: #223344;
+    color: #eeeeee;
+    font-family: 'Monaco', monospace;
     outline: none;
     white-space: pre;
 }
 
 .console .prompt .cursor {
-    background-color: #000000;
-    color: #eeeeee;
+    background-color: #eeeeee;
+    color: #223344;
 }
