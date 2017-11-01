@@ -1,5 +1,5 @@
 import * as React from 'react';
-import makeEvaluator from '@peacefulbit/list-machine';
+import makeEvaluator, { print } from '@peacefulbit/list-machine';
 import { Console, Editor } from '../components';
 
 export default class App extends React.Component<{}, {}> {
@@ -52,7 +52,7 @@ export default class App extends React.Component<{}, {}> {
         />
         <Console
           ref={ref => this.consoleRef = ref}
-          onEval={this.evaluate}
+          onEval={(code) => print(this.evaluate(code))}
         />
       </div>
     );
