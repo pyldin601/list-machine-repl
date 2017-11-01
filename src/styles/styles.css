@@ -81,14 +81,3 @@
     background-color: #eeeeee;
     color: #223344;
 }
-
-.repl-container .console .prompt .dumb {
-    width: 0;
-    height: 0;
-    outline: none;
-    background: none;
-    border: none;
-    position: absolute;
-    left: -10px;
-    top: -10px;
-}
