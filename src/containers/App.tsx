@@ -12,13 +12,26 @@ export default class App extends React.Component<{}, {}> {
     this.evaluate = makeEvaluator();
 
     this.onEditorEval = this.onEditorEval.bind(this);
+    this.onCodeUpdate = this.onCodeUpdate.bind(this);
+  }
+
+  public getCode() {
+    const hash = window.location.hash;
+    if (!hash) {
+      return this.getCodeFromLocalStorage();
+    }
+    return decodeURIComponent(hash.slice(1));
   }
 
   public async onEditorEval(code: string) {
-    this.saveCodeToLocalStorage(code);
     await this.consoleRef.clean();
     await this.consoleRef.writeLine('input', '');
     await this.consoleRef.eval(code);
+  }
+
+  public onCodeUpdate(code: string) {
+    this.saveCodeToLocalStorage(code);
+    window.location.hash = `code=${encodeURIComponent(code)}`;
   }
 
   public getCodeFromLocalStorage() {
@@ -33,8 +46,9 @@ export default class App extends React.Component<{}, {}> {
     return (
       <div className="repl-container">
         <Editor
-          code={this.getCodeFromLocalStorage()}
+          code={this.getCode()}
           onEval={this.onEditorEval}
+          onChange={this.onCodeUpdate}
         />
         <Console
           ref={ref => this.consoleRef = ref}

@@ -1,10 +1,12 @@
 import * as React from 'react';
+import * as setState from 'react-state-promise'
 import * as CodeMirror from 'react-codemirror';
 
 require('codemirror/mode/commonlisp/commonlisp');
 
 interface IConsoleProps {
-  onEval: (content: string) => any,
+  onEval: (code: string) => any,
+  onChange: (code: string) => void,
   code: string,
 }
 
@@ -25,12 +27,13 @@ export default class Editor extends React.Component<IConsoleProps, IConsoleState
       code: this.props.code,
     };
 
-    this.onUpdateCode = this.onUpdateCode.bind(this);
+    this.onCodeUpdate = this.onCodeUpdate.bind(this);
     this.onEvalClick = this.onEvalClick.bind(this);
   }
 
-  public onUpdateCode(code: string) {
+  public onCodeUpdate(code: string) {
     this.setState({ code });
+    this.props.onChange(code);
   }
 
   public onEvalClick() {
@@ -42,7 +45,7 @@ export default class Editor extends React.Component<IConsoleProps, IConsoleState
       <div className="editor">
         <CodeMirror
           value={this.state.code}
-          onChange={this.onUpdateCode}
+          onChange={this.onCodeUpdate}
           options={options}
         />
         <div className="panel">
