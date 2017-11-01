@@ -5,6 +5,7 @@ require('codemirror/mode/commonlisp/commonlisp');
 
 interface IConsoleProps {
   onEval: (content: string) => any,
+  code: string,
 }
 
 interface IConsoleState {
@@ -21,7 +22,7 @@ export default class Editor extends React.Component<IConsoleProps, IConsoleState
     super(props);
 
     this.state = {
-      code: '',
+      code: this.props.code,
     };
 
     this.onUpdateCode = this.onUpdateCode.bind(this);
