@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/pldin601/list-machine-repl#readme",
   "dependencies": {
-    "@peacefulbit/list-machine": "^0.1.6",
+    "@peacefulbit/list-machine": "^0.2.0",
     "@types/classnames": "^2.2.3",
     "@types/jest": "^21.1.5",
     "@types/lodash": "^4.14.80",
@@ -42,7 +42,7 @@
     "style-loader": "^0.19.0",
     "ts-loader": "^3.1.1",
     "tslint": "^5.8.0",
-    "typescript": "^2.5.3",
+    "typescript": "^2.6.1",
     "webpack": "^3.8.1"
   },
   "devDependencies": {}
