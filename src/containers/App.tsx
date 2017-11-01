@@ -31,7 +31,7 @@ export default class App extends React.Component<{}, {}> {
 
   public onCodeUpdate(code: string) {
     this.saveCodeToLocalStorage(code);
-    window.location.hash = `code=${encodeURIComponent(code)}`;
+    window.location.hash = encodeURIComponent(code);
   }
 
   public getCodeFromLocalStorage() {
