@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "Web REPL for List Machine",
   "scripts": {
+    "postinstall": "npm run build",
     "test": "jest",
     "cover": "jest --coverage && (cat ./coverage/lcov.info | coveralls)",
     "build": "webpack -p",
@@ -20,7 +21,7 @@
   },
   "homepage": "https://github.com/pldin601/list-machine-repl#readme",
   "dependencies": {
-    "@peacefulbit/list-machine": "^0.3.0",
+    "@peacefulbit/list-machine": "^0.3.1",
     "@types/classnames": "^2.2.3",
     "@types/jest": "^21.1.5",
     "@types/lodash": "^4.14.80",
