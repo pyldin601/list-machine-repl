@@ -34,6 +34,10 @@ export default class Console extends React.Component<IConsoleProps, IConsoleStat
     this.onPaste = this.onPaste.bind(this);
   }
 
+  public async componentWillMount() {
+    await this.writeLine('output', 'List Machine REPL');
+  }
+
   public setStateAsync = (state: any) => new Promise((resolve) => {
     this.setState(state, resolve);
   });
