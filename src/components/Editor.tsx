@@ -6,6 +6,8 @@ require('codemirror/mode/commonlisp/commonlisp');
 
 interface IConsoleProps {
   onEval: (code: string) => any,
+  onTokenize: (code: string) => any,
+  onParse: (code: string) => any,
   onChange: (code: string) => void,
   code: string,
 }
@@ -29,6 +31,8 @@ export default class Editor extends React.Component<IConsoleProps, IConsoleState
 
     this.onCodeUpdate = this.onCodeUpdate.bind(this);
     this.onEvalClick = this.onEvalClick.bind(this);
+    this.onTokensClick = this.onTokensClick.bind(this);
+    this.onAstClick = this.onAstClick.bind(this);
   }
 
   public onCodeUpdate(code: string) {
@@ -38,6 +42,14 @@ export default class Editor extends React.Component<IConsoleProps, IConsoleState
 
   public onEvalClick() {
     this.props.onEval(this.state.code);
+  }
+
+  public onTokensClick() {
+    this.props.onTokenize(this.state.code);
+  }
+
+  public onAstClick() {
+    this.props.onParse(this.state.code);
   }
 
   public render() {
@@ -50,6 +62,8 @@ export default class Editor extends React.Component<IConsoleProps, IConsoleState
         />
         <div className="panel">
           <button className="button flat" onClick={this.onEvalClick}>Evaluate</button>
+          <button className="button flat" onClick={this.onTokensClick}>Tokenize</button>
+          <button className="button flat" onClick={this.onAstClick}>Parse</button>
         </div>
       </div>
     )

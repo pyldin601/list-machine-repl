@@ -1,5 +1,6 @@
+import { toArray } from 'lodash';
 import * as React from 'react';
-import { evaluate, valueOf, Env } from '@peacefulbit/list-machine';
+import { Env, evaluate, valueOf, tokenize, parse } from '@peacefulbit/list-machine';
 import { Console, Editor } from '../components';
 
 export default class App extends React.Component<{}, {}> {
@@ -14,6 +15,9 @@ export default class App extends React.Component<{}, {}> {
     this.evaluate = (code: string) => evaluate(code, this.env);
 
     this.onEditorEval = this.onEditorEval.bind(this);
+    this.onEditorTokenize = this.onEditorTokenize.bind(this);
+    this.onEditorParse = this.onEditorParse.bind(this);
+
     this.onCodeUpdate = this.onCodeUpdate.bind(this);
   }
 
@@ -27,8 +31,26 @@ export default class App extends React.Component<{}, {}> {
 
   public async onEditorEval(code: string) {
     await this.consoleRef.clean();
-    await this.consoleRef.writeLine('input', '');
     await this.consoleRef.eval(code);
+  }
+
+  public async onEditorTokenize(code: string) {
+    await this.consoleRef.clean();
+    try {
+      const tokensStream = tokenize(code);
+      await this.consoleRef.writeLine('output', JSON.stringify(toArray(tokensStream), null, 2));
+    } catch (e) {
+      await this.consoleRef.writeLine('error', e.message);
+    }
+  }
+
+  public async onEditorParse(code: string) {
+    await this.consoleRef.clean();
+    try {
+      await this.consoleRef.writeLine('output', JSON.stringify(parse(code), null, 2));
+    } catch (e) {
+      await this.consoleRef.writeLine('error', e.message);
+    }
   }
 
   public onCodeUpdate(code: string) {
@@ -49,6 +71,8 @@ export default class App extends React.Component<{}, {}> {
       <div className="repl-container">
         <Editor
           code={this.getCode()}
+          onTokenize={this.onEditorTokenize}
+          onParse={this.onEditorParse}
           onEval={this.onEditorEval}
           onChange={this.onCodeUpdate}
         />
