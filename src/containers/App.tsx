@@ -1,15 +1,17 @@
 import * as React from 'react';
-import makeEvaluator, { print } from '@peacefulbit/list-machine';
+import { evaluate, valueOf, Env } from '@peacefulbit/list-machine';
 import { Console, Editor } from '../components';
 
 export default class App extends React.Component<{}, {}> {
-  private evaluate: (code: string) => any;
   private consoleRef: Console;
+  private env: Env;
+  private evaluate: (code: string) => any;
 
   constructor(props: {}) {
     super(props);
 
-    this.evaluate = makeEvaluator();
+    this.env = new Env();
+    this.evaluate = (code: string) => evaluate(code, this.env);
 
     this.onEditorEval = this.onEditorEval.bind(this);
     this.onCodeUpdate = this.onCodeUpdate.bind(this);
@@ -52,7 +54,7 @@ export default class App extends React.Component<{}, {}> {
         />
         <Console
           ref={ref => this.consoleRef = ref}
-          onEval={(code) => print(this.evaluate(code))}
+          onEval={(code) => valueOf(this.evaluate(code))}
         />
       </div>
     );
